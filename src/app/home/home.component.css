@@ -1,0 +1,31 @@
+.table-thead-th {
+  cursor: pointer;
+
+}
+.confirmed-graph{
+  height: 300px;
+   width: 50%;
+}
+.high-condition{
+  color: rgb(245, 6, 6);
+}
+.medium-condition{
+  color:rgb(235, 92, 92);
+}
+.low-condition{
+  color:rgb(202, 132, 105);
+}
+.footer {
+  height: 40px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color:#212529;
+  color: white;
+}
+.table-margin{
+  margin-left: 3px;
+}
+.nav-margin{
+  margin-left: 12px;
+}
