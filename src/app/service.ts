@@ -16,7 +16,7 @@ export class HomeService {
       dataSourceUrl: `/time_series_covid19_confirmed_global.csv`
     },
     recovered: {
-      dataSourceUrl: `/time_series_19-covid-Recovered.csv`
+      dataSourceUrl: `/time_series_covid19_recovered_global.csv`
     },
     deaths: {
       dataSourceUrl: `/time_series_covid19_deaths_global.csv`
@@ -36,9 +36,9 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   public getConfirmCase(): Observable<any> {
-    const url = `${this.convidBaseUrl}${this.CovidDataTypes.confirmed.dataSourceUrl}`;
+   //const url = `${this.convidBaseUrl}${this.CovidDataTypes.confirmed.dataSourceUrl}`;
     return this.http
-      .get(url, this.options)
+      .get(`https://raw.githubusercontent.com/bumbeishvili/covid19-daily-data/master/time_series_19-covid-Confirmed.csv`, this.options)
       .pipe(
         map((file: ArrayBuffer) => {
           return file;
@@ -47,9 +47,9 @@ export class HomeService {
   }
 
   public getRecoveredCase(): Observable<any> {
-    const url = `${this.convidBaseUrl}${this.CovidDataTypes.recovered.dataSourceUrl}`;
+    //const url = `${this.convidBaseUrl}${this.CovidDataTypes.recovered.dataSourceUrl}`;
     return this.http
-      .get(url, this.options)
+      .get(`https://raw.githubusercontent.com/bumbeishvili/covid19-daily-data/master/time_series_19-covid-Recovered.csv`, this.options)
       .pipe(
         map((file: ArrayBuffer) => {
           return file;
@@ -58,9 +58,9 @@ export class HomeService {
   }
 
   public getDeathsCase(): Observable<any> {
-    const url = `${this.convidBaseUrl}${this.CovidDataTypes.deaths.dataSourceUrl}`;
+   // const url = `${this.convidBaseUrl}${this.CovidDataTypes.deaths.dataSourceUrl}`;
     return this.http
-      .get(url, this.options)
+      .get(`https://raw.githubusercontent.com/bumbeishvili/covid19-daily-data/master/time_series_19-covid-Deaths.csv`, this.options)
       .pipe(
         map((file: ArrayBuffer) => {
           return file;

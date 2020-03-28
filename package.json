@@ -9,7 +9,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "postinstall": "ng build --aot -prod",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -35,10 +35,7 @@
     "path": "^0.12.7",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1",
-    "@angular/cli": "1.4.9",
-    "@angular/compiler-cli": "^4.4.6"
-    
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.18",
@@ -63,9 +60,5 @@
   },
   "resolutions": {
     "@babel/preset-env": "7.5.5"
-  },
-  "engines": {
-    "node": "6.11.0",
-    "npm": "3.10.10"
   }
 }

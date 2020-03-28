@@ -33,6 +33,10 @@
     <div id="chartDeathsContainer" class="col-md-6 confirmed-graph"></div>
   </div>
   <div class="row">
+    <div id="chartRecoveryContainer" class="col-md-6 confirmed-graph"></div>
+    <div></div>
+  </div>
+  <div class="row">
     <div class="col-md-6 form-group">
       <input
         [(ngModel)]="regionName"
@@ -53,13 +57,32 @@
       <thead>
         <tr class="table-thead-th">
           <th></th>
-          <th (click)="toggleSorting('REGIONS')">Regions</th>
+          <th (click)="toggleSorting('REGIONS')">Country/Regions</th>
           <th (click)="toggleSorting('CONFIRMED')">
             Confirmed
             <span class="pull-right" *ngIf="confirmArrow === 'UP'">&uarr;</span>
             <span class="pull-right" *ngIf="confirmArrow === 'DOWN'"
               >&darr;</span
             >
+          </th>
+          <th (click)="toggleSorting('ACTIVE')" >Active
+            <span class="pull-right" *ngIf="activeArrow === 'UP'">&uarr;</span>
+            <span class="pull-right" *ngIf="activeArrow === 'DOWN'"
+              >&darr;</span
+            >
+          </th>
+          <th (click)="toggleSorting('RECOVERED')" >Recovered 
+            <span class="pull-right" *ngIf="recoveredArrow === 'UP'">&uarr;</span>
+            <span class="pull-right" *ngIf="recoveredArrow === 'DOWN'"
+              >&darr;</span
+            >
+          </th>
+          <th (click)="toggleSorting('RECOVEREDPERCENTAGE')">Recovered Percentage 
+            <span class="pull-right" *ngIf="recoveredPercentageArrow === 'UP'">&uarr;</span>
+            <span class="pull-right" *ngIf="recoveredPercentageArrow === 'DOWN'"
+              >&darr;</span
+            >
+
           </th>
           <th (click)="toggleSorting('DEATHS')">
             Deaths
@@ -96,6 +119,9 @@
           </td>
           <td>{{ data.regionName }}</td>
           <td>{{ data.confirmed }}</td>
+          <td>{{ data.activeCase }}</td>
+          <td>{{ data.recovered }}</td>
+          <td>{{ data.recoveredPercentage | number: "1.2-2" }}</td>
           <td *ngIf="data.deaths > 4000" class="high-condition">
             {{ data.deaths }}
           </td>
@@ -108,7 +134,7 @@
           <td *ngIf="data.deaths <= 100" class="low-condition">
             {{ data.deaths }}
           </td>
-          <td>{{ data.percentage | number: "1.2-2" }}%</td>
+          <td>{{ data.deathsPercentage | number: "1.2-2" }}%</td>
         </tr>
       </tbody>
     </table>
@@ -116,17 +142,21 @@
 
   <div class="row">
     <div class="footer">
-      <div>
-        Information source
-        <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"
-          >here
+      <div class="div-space-10" >
+       <strong class="space-info"> Information source</strong>
+        <a href="https://github.com/bumbeishvili/covid19-daily-data" target="_blank"
+          > <strong class="space-info">here</strong> 
         </a>
-        Learner
+        <strong class="space-info">Note : Data may vary from different sources. </strong>
+       <strong class="space-info">| Learner</strong> 
         <a
           class="pull-right"
           href="https://www.linkedin.com/in/nihal-ahmed-45181a3b/"
           target="_blank"
-          >Nihal Ahmed</a
+          >
+          <strong class="space-info">Nihal Ahmed</strong> 
+          
+          </a
         >
       </div>
     </div>
