@@ -3,8 +3,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +14,7 @@ export class HomeService {
       dataSourceUrl: `/time_series_covid19_confirmed_global.csv`
     },
     recovered: {
-      dataSourceUrl: `/time_series_19-covid-Recovered.csv`
+      dataSourceUrl: `/time_series_covid19_recovered_global.csv`
     },
     deaths: {
       dataSourceUrl: `/time_series_covid19_deaths_global.csv`

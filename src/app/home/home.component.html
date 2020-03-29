@@ -5,15 +5,8 @@
         <i class="fas fa-chart-bar" aria-hidden="true"></i> Novel COVID-19
         Dashboard
       </div>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -29,23 +22,44 @@
     </nav>
   </div>
   <div class="row">
-    <div id="chartConfirmedContainer" class="col-md-6 confirmed-graph"></div>
-    <div id="chartDeathsContainer" class="col-md-6 confirmed-graph"></div>
+    <div class="col-md-6  confirmed-graph">
+   
+      <div class="card bg-light">
+        <strong style="padding-left: 25px; margin-top: 10px;" >{{summaryTitle}} </strong>
+        <div class="row margin-total div-confirm-bg">
+          <div class="col-md-3"> Total Confirmed </div>
+          <div class="col-md-3 total-no"> {{totalCases.totalConfirmed}} </div>
+          <div class="col-md-3"> Total New Confirmed </div>
+          <div class="col-md-3 total-no"> {{totalCases.totalConfirmedNew}} </div>
+        </div>
+        <div class="row margin-total div-death-bg">
+          <div class="col-md-3"> Total Death </div>
+          <div class="col-md-3 total-no"> {{totalCases.totalDeath}}</div>
+          <div class="col-md-3"> Total New death </div>
+          <div class="col-md-3 total-no"> {{totalCases.totalDeathNew}}</div>
+        </div>
+        <div class="row margin-total div-recover-bg">
+          <div class="col-md-3">Total Recovered </div>
+          <div class="col-md-3 total-no"> {{totalCases.totalRecovered}}</div>
+          <div class="col-md-3">Total New recovered </div>
+          <div class="col-md-3 total-no"> {{totalCases.totalRecoveredNew}}</div>
+        </div>
+      </div>
+    </div>
+    <div id="chartConfirmedContainer" class="col-md-6 confirmed-graph"></div>    
   </div>
   <div class="row">
+    <div id="chartRecoveryContainer" class="col-md-6 confirmed-graph"></div>
+    <div id="chartDeathsContainer" class="col-md-6 confirmed-graph"></div>
+  </div>
+  <div class="div-space-20"></div>
+  <div class="row">
     <div class="col-md-6 form-group">
-      <input
-        [(ngModel)]="regionName"
-        type="text"
-        name="regionName"
-        (keyup)="searchRegion(regionName)"
-        id="regionName"
-        placeholder="Search..."
-        class="form-control user-search-text"
-      />
+      <input [(ngModel)]="regionName" type="text" name="regionName" (keyup)="searchRegion(regionName)" id="regionName"
+        placeholder="Search..." class="form-control user-search-text" />
     </div>
     <div class="col-md-6 form-group">
-      <button  type="button" (click)="refresh()" class="btn btn-primary">Refresh</button>
+      <button type="button" (click)="refresh()" class="btn btn-primary">Refresh</button>
     </div>
   </div>
   <div class="row table-margin">
@@ -57,77 +71,68 @@
           <th (click)="toggleSorting('CONFIRMED')">
             Confirmed
             <span class="pull-right" *ngIf="confirmArrow === 'UP'">&uarr;</span>
-            <span class="pull-right" *ngIf="confirmArrow === 'DOWN'"
-              >&darr;</span
-            >
+            <span class="pull-right" *ngIf="confirmArrow === 'DOWN'">&darr;</span>
+          </th>
+          <th (click)="toggleSorting('ACTIVE')">Active
+            <span class="pull-right" *ngIf="activeArrow === 'UP'">&uarr;</span>
+            <span class="pull-right" *ngIf="activeArrow === 'DOWN'">&darr;</span>
+          </th>
+          <th (click)="toggleSorting('RECOVERED')">Recovered
+            <span class="pull-right" *ngIf="recoveredArrow === 'UP'">&uarr;</span>
+            <span class="pull-right" *ngIf="recoveredArrow === 'DOWN'">&darr;</span>
+          </th>
+          <th (click)="toggleSorting('RECOVEREDPERCENTAGE')">Recovered Percentage
+            <span class="pull-right" *ngIf="recoveredPercentageArrow === 'UP'">&uarr;</span>
+            <span class="pull-right" *ngIf="recoveredPercentageArrow === 'DOWN'">&darr;</span>
           </th>
           <th (click)="toggleSorting('DEATHS')">
             Deaths
             <span class="pull-right" *ngIf="deathsArrow === 'UP'">&uarr;</span>
-            <span class="pull-right" *ngIf="deathsArrow === 'DOWN'"
-              >&darr;</span
-            >
+            <span class="pull-right" *ngIf="deathsArrow === 'DOWN'">&darr;</span>
           </th>
           <th (click)="toggleSorting('PERCENTAGE')">
             Deaths Percentage
-            <span class="pull-right" *ngIf="percentageArrow === 'UP'"
-              >&uarr;</span
-            >
-            <span class="pull-right" *ngIf="percentageArrow === 'DOWN'"
-              >&darr;</span
-            >
+            <span class="pull-right" *ngIf="percentageArrow === 'UP'">&uarr;</span>
+            <span class="pull-right" *ngIf="percentageArrow === 'DOWN'">&darr;</span>
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          class="table-tbody-tr"
-          *ngFor="let data of responseData; let i = index"
-        >
+        <tr class="table-tbody-tr font-style" *ngFor="let data of responseData; let i = index">
           <td>
-            <input
-              type="radio"
-              [(ngModel)]="data.selectedCountry"
-              name="countryName"
-              [checked]="data.selectedCountry"
-              [value]="data.selectedCountry"
-              (click)="selectedCountry(data)"
-            />
+            <input type="radio" [(ngModel)]="data.selectedCountry" name="countryName" [checked]="data.selectedCountry"
+              [value]="data.selectedCountry" (click)="selectedCountry(data)" />
           </td>
-          <td>{{ data.regionName }}</td>
+          <td style="width: 14%;">{{ data.regionName }}</td>
           <td>{{ data.confirmed }}</td>
+          <td>{{ data.activeCase }}</td>
+          <td>{{ data.recovered }}</td>
+          <td>{{ data.recoveredPercentage | number: "1.2-2" }}%</td>
           <td *ngIf="data.deaths > 4000" class="high-condition">
             {{ data.deaths }}
           </td>
-          <td
-            *ngIf="data.deaths <= 4000 && data.deaths > 100"
-            class="medium-condition"
-          >
+          <td *ngIf="data.deaths <= 4000 && data.deaths > 100" class="medium-condition">
             {{ data.deaths }}
           </td>
           <td *ngIf="data.deaths <= 100" class="low-condition">
             {{ data.deaths }}
           </td>
-          <td>{{ data.percentage | number: "1.2-2" }}%</td>
+          <td>{{ data.deathsPercentage | number: "1.2-2" }}%</td>
         </tr>
       </tbody>
     </table>
   </div>
-
   <div class="row">
     <div class="footer">
-      <div>
-        Information source
-        <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"
-          >here
+      <div class="div-space-10">
+        <strong class="space-info"> Information source</strong>
+        <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank"> <strong class="space-info">here</strong>
         </a>
-        Learner
-        <a
-          class="pull-right"
-          href="https://www.linkedin.com/in/nihal-ahmed-45181a3b/"
-          target="_blank"
-          >Nihal Ahmed</a
-        >
+        <strong class="space-info">Note : Data may vary from different sources. </strong>
+        <strong class="space-info">| Learner</strong>
+        <a class="pull-right" href="https://www.linkedin.com/in/nihal-ahmed-45181a3b/" target="_blank">
+          <strong class="space-info">Nihal Ahmed</strong>
+        </a>
       </div>
     </div>
   </div>

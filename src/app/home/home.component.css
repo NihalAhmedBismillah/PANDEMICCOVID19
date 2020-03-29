@@ -16,6 +16,7 @@
   color:rgb(202, 132, 105);
 }
 .footer {
+  margin-left: 15px;
   height: 40px;
   left: 0;
   bottom: 0;
@@ -27,5 +28,37 @@
   margin-left: 3px;
 }
 .nav-margin{
-  margin-left: 12px;
+  margin-bottom: 20px;
+    margin-left: 1px;
+}
+.div-space-10{
+  margin-top: 10px;
+}
+.space-info{
+  margin-left: 10px;
+}
+.font-style{
+  font-size: 16px;
+    font-weight: 700;
+}
+.margin-total{
+  margin: 12px;
+}
+.div-space-20{
+  margin-top: 20px;
+}
+.div-confirm-bg{
+  background-color: bisque;
+}
+.div-death-bg{
+  background-color: #d5797d;
+  color:  white;
+}
+.div-recover-bg{
+  background-color: #28a74594;
+}
+.total-no{
+  text-align: center;
+    font-size: 21px;
+    padding-top: 8px;
 }

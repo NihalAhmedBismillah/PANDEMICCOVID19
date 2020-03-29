@@ -1,8 +1,22 @@
 
+export class TotalCases {
+
+  totalConfirmed: number = null;
+  totalRecovered: number = null;
+  totalDeath: number = null;
+  totalConfirmedNew: number = null;
+  totalRecoveredNew: number = null;
+  totalDeathNew: number = null;
+
+}
+
 export class ResponseData {
   regionName: string = null;
   confirmed: number = null;
-  percentage: number = null;
+  deathsPercentage: number = null;
+  recovered: number = null;
+  recoveredPercentage: number = null;
+  activeCase: number = null;
   deaths: number = null;
   selectedCountry: boolean = null;
   constructor(dataList?: DataList) {
@@ -12,22 +26,29 @@ export class ResponseData {
 
 export class DataList {
 
-  public mergeData = (data: any) => {
+  public mergeData = (data: Array<any>) => {
     let result = [];
-    const data1 = data[0];
-    if (data1.name === 'confirmed') {
-      data1.data.forEach((x, index) => {
-        result = [...result, { regionName: `${x["Country/Region"]} ${x["Province/State"]}` }];
-        result[index][data1.name] = +x[Object.keys(x)[Object.keys(x).length - 1]];
-      });
-    }
-    const data3 = data[1];
-    if (data3.name === 'deaths') {
-      data3.data.forEach((x, index) => {
-        result[index][data3.name] = +x[Object.keys(x)[Object.keys(x).length - 1]];
-
-      });
-    }
+    const recoveredData = <Array<any>>data.filter((x) => x.name === 'recovered')[0].data;
+    data.forEach((y) => {
+      if (y.name === 'confirmed') {
+        y.data.forEach((x, index) => {
+          result = [...result, { regionName: `${x["Country/Region"]} ${x["Province/State"]}` }];
+          result[index][y.name] = Math.ceil(+x[Object.keys(x)[Object.keys(x).length - 1]]);
+        });
+      }
+      if (y.name === 'deaths') {
+        y.data.forEach((x, index) => {
+          result[index][y.name] = Math.ceil(+x[Object.keys(x)[Object.keys(x).length - 1]]);
+        });
+      }
+    });
+    result.forEach((item: ResponseData) => {
+      const filterRecoveredData = recoveredData.filter((x) =>
+        item.regionName === `${x["Country/Region"]} ${x["Province/State"]}`)[0] || null;
+      item.recovered = filterRecoveredData ?
+        Math.ceil(+filterRecoveredData[Object.keys(filterRecoveredData)[Object.keys(filterRecoveredData).length - 1]])
+        : 0;
+    });
     return result;
   }
   public csv2Array = (csv) => {
